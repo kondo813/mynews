@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::controller(NewsController::class)->prefix('admin')->name('news.')->group(function(){
+    Route::get('news/create', 'add')->name('add');
+});
+
+Route::get('admin/profile/create', [SelfProfileController::class, 'add'])->name('selfprofile');
+Route::get('admin/profile/edit', [SelfProfileController::class, 'edit'])->name('selfprofile');
