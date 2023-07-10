@@ -1,17 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\SelfProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,5 +12,7 @@ Route::controller(NewsController::class)->prefix('admin')->name('news.')->group(
     Route::get('news/create', 'add')->name('add');
 });
 
-Route::get('admin/profile/create', [SelfProfileController::class, 'add'])->name('selfprofile');
-Route::get('admin/profile/edit', [SelfProfileController::class, 'edit'])->name('selfprofile');
+Route::controller(SelfProfileController::class)->prefix('admin')->name('selfprofile.')->group(function(){
+    Route::get('profile/create', 'add')->name('add');
+    Route::get('profile/edit', 'edit')->name('edit');
+});
